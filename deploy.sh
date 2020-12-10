@@ -2,9 +2,9 @@ cd wwwsrc
 npm run build
 cd ..
 dotnet publish -c Release
-docker build -t keeprboone ./
-docker tag keeprboone registry.heroku.com/keeprboone/web
-docker push registry.heroku.com/keeprboone/web
-heroku container:release web -a keeprboone
+docker build -t clreddit ./
+docker tag clreddit registry.heroku.com/clreddit/web
+docker push registry.heroku.com/clreddit/web
+heroku container:release web -a clreddit
 echo press any key
 read end

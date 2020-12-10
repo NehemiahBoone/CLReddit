@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Data;
 using CodeWorks.Auth0Provider;
-using Keepr.Repositories;
-using Keepr.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MySqlConnector;
 
-namespace Keepr
+namespace CLReddit
 {
   public class Startup
   {
@@ -42,7 +40,6 @@ namespace Keepr
                           .WithOrigins(new string[]{
                             "http://localhost:8080",
                             "http://localhost:8081",
-                            "https://keeprboone.herokuapp.com/"
                           })
                           .AllowAnyMethod()
                           .AllowAnyHeader()
@@ -56,17 +53,6 @@ namespace Keepr
 
 
 
-      services.AddTransient<ProfilesService>();
-      services.AddTransient<ProfilesRepository>();
-
-      services.AddTransient<KeepsService>();
-      services.AddTransient<KeepsRepository>();
-
-      services.AddTransient<VaultsService>();
-      services.AddTransient<VaultsRepository>();
-
-      services.AddTransient<VaultKeepsService>();
-      services.AddTransient<VaultKeepsRepository>();
     }
 
     private IDbConnection CreateDbConnection()
