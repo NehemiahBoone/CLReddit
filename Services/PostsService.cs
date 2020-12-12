@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using CLReddit.Models;
 using CLReddit.Repositories;
 
 namespace CLReddit.Services
@@ -8,6 +11,11 @@ namespace CLReddit.Services
     public PostsService(PostsRepository pr)
     {
       _repo = pr;
+    }
+
+    internal IEnumerable<Post> GetAll()
+    {
+      return _repo.GetAll()
     }
   }
 }

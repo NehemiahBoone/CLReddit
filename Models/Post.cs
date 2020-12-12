@@ -8,5 +8,6 @@ namespace CLReddit.Models
     public string Text { get; set; }
     public int Upvotes { get; set; }
     public int Downvotes { get; set; }
+    public Profile Creator { get; set; }
   }
 }
