@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Data;
+using CLReddit.Repositories;
+using CLReddit.Services;
 using CodeWorks.Auth0Provider;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -51,6 +53,11 @@ namespace CLReddit
 
       services.AddScoped<IDbConnection>(x => CreateDbConnection());
 
+      services.AddTransient<ProfilesService>();
+      services.AddTransient<ProfilesRepository>();
+
+      services.AddTransient<PostsService>();
+      services.AddTransient<PostsRepository>();
 
 
     }
