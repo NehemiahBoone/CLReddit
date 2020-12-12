@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CLReddit.Models;
 using CLReddit.Services;
+using CodeWorks.Auth0Provider;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CLReddit.Controllers
@@ -34,6 +36,23 @@ namespace CLReddit.Controllers
       try
       {
         return Ok(_ps.GetById(id));
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Post>> CreatePost([FromBody] Post newPost)
+    {
+      try
+      {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        newPost.CreatorId = userInfo.Id;
+        Post created = _ps.CreatePost(newPost);
+        created.Creator = userInfo;
+        return Ok(created);
       }
       catch (System.Exception e)
       {
