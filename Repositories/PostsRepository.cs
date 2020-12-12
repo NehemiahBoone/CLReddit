@@ -45,5 +45,11 @@ namespace CLReddit.Repositories
         SELECT LAST_INSERT_ID();";
       return _db.ExecuteScalar<int>(sql, newPost);
     }
+
+    internal void DeletePost(int postId)
+    {
+      string sql = "DELETE FROM posts WHERE id = @postId";
+      _db.Execute(sql, new { postId });
+    }
   }
 }
