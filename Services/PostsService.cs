@@ -15,7 +15,7 @@ namespace CLReddit.Services
 
     internal IEnumerable<Post> GetAll()
     {
-      return _repo.GetAll()
+      return _repo.GetAll();
     }
   }
 }
