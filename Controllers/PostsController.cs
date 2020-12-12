@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CLReddit.Models;
 using CLReddit.Services;
 using CodeWorks.Auth0Provider;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CLReddit.Controllers
@@ -44,6 +45,7 @@ namespace CLReddit.Controllers
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<Post>> CreatePost([FromBody] Post newPost)
     {
       try
@@ -60,5 +62,18 @@ namespace CLReddit.Controllers
       }
     }
 
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<string>> DeletePost(int id)
+    {
+      try
+      {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        return Ok(_ps.DeletePost(id, userInfo.Id));
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
   }
 }
