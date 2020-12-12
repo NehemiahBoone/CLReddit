@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using CLReddit.Models;
 using Dapper;
 
@@ -21,10 +22,22 @@ namespace CLReddit.Repositories
       _db = db;
     }
 
+
     internal IEnumerable<Post> GetAll()
     {
       string sql = populateCreator;
       return _db.Query<Post, Profile, Post>(sql, (post, profile) => { post.Creator = profile; return post; }, splitOn: "id");
+    }
+
+    internal Post GetById(int id)
+    {
+      string sql = populateCreator + "WHERE post.id = @id";
+      return _db.Query<Post, Profile, Post>(sql, (post, profile) => { post.Creator = profile; return post; }, new { id }, splitOn: "id").FirstOrDefault();
+    }
+
+    internal int CreatePost(Post newPost)
+    {
+      throw new NotImplementedException();
     }
   }
 }
