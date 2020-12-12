@@ -17,5 +17,22 @@ namespace CLReddit.Services
     {
       return _repo.GetAll();
     }
+
+    internal Post GetById(int id)
+    {
+      var post = _repo.GetById(id);
+
+      if (post == null)
+      {
+        throw new Exception("Invalid id... from PostsService l.27");
+      }
+
+      return post;
+    }
+
+    internal Post CreatePost(Post newPost)
+    {
+      throw new NotImplementedException();
+    }
   }
 }
