@@ -32,7 +32,8 @@ namespace CLReddit.Services
 
     internal Post CreatePost(Post newPost)
     {
-      throw new NotImplementedException();
+      newPost.Id = _repo.CreatePost(newPost);
+      return newPost;
     }
   }
 }
