@@ -1,3 +1,5 @@
+using CLReddit.Repositories;
+
 namespace CLReddit.Services
 {
   public class PostsService
