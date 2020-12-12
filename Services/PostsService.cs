@@ -35,5 +35,22 @@ namespace CLReddit.Services
       newPost.Id = _repo.CreatePost(newPost);
       return newPost;
     }
+
+    internal object DeletePost(int postId, string userId)
+    {
+      Post post = _repo.GetById(postId);
+      if (post == null)
+      {
+        throw new Exception("Invalid id... from PostsService l.44");
+      }
+
+      if (post.CreatorId != userId)
+      {
+        throw new Exception("UNAUTHORIZED... from PostsService l.49");
+      }
+
+      _repo.DeletePost(postId);
+      return "Successfully deleted post... from PostsService l.53";
+    }
   }
 }
