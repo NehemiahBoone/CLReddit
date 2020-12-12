@@ -37,7 +37,13 @@ namespace CLReddit.Repositories
 
     internal int CreatePost(Post newPost)
     {
-      throw new NotImplementedException();
+      string sql = @"
+        INSERT INTO posts
+        (creatorId, title, text, upvotes, downvotes)
+        VALUES
+        (@CreatorId, @Title, @Text, @Upvotes, @Downvotes);
+        SELECT LAST_INSERT_ID();";
+      return _db.ExecuteScalar<int>(sql, newPost);
     }
   }
 }
