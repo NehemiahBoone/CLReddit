@@ -44,5 +44,22 @@ namespace CLReddit.Repositories
       SELECT LAST_INSERT_ID();";
       return _db.ExecuteScalar<int>(sql, newComment);
     }
+
+    internal Comment EditComment(Comment editedComment)
+    {
+      string sql = @"
+      UPDATE comments
+      SET
+      creatorId = @CreatorId,
+      name = @Name,
+      description = @Description,
+      img = @Img,
+      views = @Views,
+      shares = @Shares,
+      keeps = @Keeps
+      WHERE id = @Id;";
+      _db.Execute(sql, editedComment);
+      return editedComment;
+    }
   }
 }
