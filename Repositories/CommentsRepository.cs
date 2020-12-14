@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using CLReddit.Models;
 using Dapper;
 
@@ -9,6 +10,12 @@ namespace CLReddit.Repositories
   public class CommentsRepository
   {
     private readonly IDbConnection _db;
+    private readonly string populateCreator = @"SELECT
+            comment.*,
+            profile.*
+            FROM comments comment
+            JOIN profiles profile on comment.creatorId = profile.Id ";
+
     public CommentsRepository(IDbConnection db)
     {
       _db = db;
@@ -19,6 +26,12 @@ namespace CLReddit.Repositories
       string sql = "SELECT * FROM comments WHERE postId = @id";
 
       return _db.Query<Comment>(sql, new { id });
+    }
+
+    internal Comment GetById(int id)
+    {
+      string sql = populateCreator + "WHERE comment.id = @id";
+      return _db.Query<Comment, Profile, Comment>(sql, (comment, profile) => { comment.Creator = profile; return comment; }, new { id }, splitOn: "id").FirstOrDefault();
     }
 
     internal int CreateComment(Comment newComment)

@@ -18,6 +18,19 @@ namespace CLReddit.Controllers
       _cs = cs;
     }
 
+    [HttpGet("{id}")]
+    public ActionResult<Comment> GetById(int id)
+    {
+      try
+      {
+        return Ok(_cs.GetById(id));
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
     [HttpPost]
     [Authorize]
     public async Task<ActionResult<Comment>> CreateComment([FromBody] Comment newComment)
@@ -46,7 +59,7 @@ namespace CLReddit.Controllers
         editedComment.Creator = userInfo;
         editedComment.Id = id;
 
-        return Ok(_cs.editComment(editedComment, userInfo.Id));
+        return Ok(_cs.EditComment(editedComment, userInfo.Id));
       }
       catch (System.Exception e)
       {

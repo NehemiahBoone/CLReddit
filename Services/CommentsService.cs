@@ -27,10 +27,27 @@ namespace CLReddit.Services
       return _repo.GetCommentsByPostId(id);
     }
 
+    internal Comment GetById(int id)
+    {
+      var comment = _repo.GetById(id);
+
+      if (comment == null)
+      {
+        throw new Exception("Invalid id... from PostsService l.27");
+      }
+
+      return comment;
+    }
+
     internal Comment CreateComment(Comment newComment)
     {
       newComment.Id = _repo.CreateComment(newComment);
       return newComment;
+    }
+
+    internal Comment EditComment(Comment editedComment, string userId)
+    {
+
     }
   }
 }
