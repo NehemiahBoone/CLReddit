@@ -33,7 +33,7 @@ namespace CLReddit.Services
 
       if (comment == null)
       {
-        throw new Exception("Invalid id... from PostsService l.27");
+        throw new Exception("Invalid id... from CommentsService l.36");
       }
 
       return comment;
@@ -47,7 +47,22 @@ namespace CLReddit.Services
 
     internal Comment EditComment(Comment editedComment, string userId)
     {
+      var comment = _repo.GetById(editedComment.Id);
+      if (comment === null)
+      {
+        throw new Exception("Invalid Id... from CommentsService l.52")
+      }
 
+      if (comment.CreatorId != userId)
+      {
+        throw new Exception("UNAUTHORIZED EDIT... from CommentsService l.58");
+      }
+
+      editedComment.PostId = editedComment.PostId == 0 ? comment.PostId : editedComment.PostId;
+      editedComment.Text = editedComment.Text == null ? comment.Text : editedComment.Text;
+      editedComment.Creator = editedComment.Creator == null ? comment.Creator : editedComment.Creator;
+
+      return _repo.EditComment(editedComment);
     }
   }
 }
