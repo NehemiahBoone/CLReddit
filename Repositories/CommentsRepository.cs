@@ -29,7 +29,7 @@ namespace CLReddit.Repositories
       VALUES
       (@CreatorId, @PostId, @Text);
       SELECT LAST_INSERT_ID();";
-      return _db.ExecuteScalar<int>(sql, newPost);
+      return _db.ExecuteScalar<int>(sql, newComment);
     }
   }
 }

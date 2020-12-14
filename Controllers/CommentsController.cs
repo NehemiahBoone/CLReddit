@@ -35,5 +35,23 @@ namespace CLReddit.Controllers
         return BadRequest(e.Message);
       }
     }
+
+    [HttpPut("{id}")]
+    [Authorize]
+    public async Task<ActionResult<Comment>> EditComment(int id, [FromBody] Comment editedComment)
+    {
+      try
+      {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        editedComment.Creator = userInfo;
+        editedComment.Id = id;
+
+        return Ok(_cs.editComment(editedComment, userInfo.Id));
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
   }
 }
