@@ -1,3 +1,10 @@
+using System.Threading.Tasks;
+using CLReddit.Models;
+using CLReddit.Services;
+using CodeWorks.Auth0Provider;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
 namespace CLReddit.Controllers
 {
   [ApiController]

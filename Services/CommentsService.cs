@@ -26,5 +26,11 @@ namespace CLReddit.Services
 
       return _repo.GetCommentsByPostId(id);
     }
+
+    internal Comment CreateComment(Comment newComment)
+    {
+      newComment.Id = _repo.CreateComment(newComment);
+      return newComment;
+    }
   }
 }
