@@ -48,9 +48,9 @@ namespace CLReddit.Services
     internal Comment EditComment(Comment editedComment, string userId)
     {
       var comment = _repo.GetById(editedComment.Id);
-      if (comment === null)
+      if (comment == null)
       {
-        throw new Exception("Invalid Id... from CommentsService l.52")
+        throw new Exception("Invalid Id... from CommentsService l.52");
       }
 
       if (comment.CreatorId != userId)
