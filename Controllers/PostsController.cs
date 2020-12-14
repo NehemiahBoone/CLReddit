@@ -47,7 +47,7 @@ namespace CLReddit.Controllers
     }
 
     [HttpGet("{id}/comments")]
-    public ActionResult<IENumerable<Comment>> GetCommentsByPostId(int id)
+    public ActionResult<IEnumerable<Comment>> GetCommentsByPostId(int id)
     {
       try
       {
