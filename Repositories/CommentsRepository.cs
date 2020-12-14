@@ -20,5 +20,16 @@ namespace CLReddit.Repositories
 
       return _db.Query<Comment>(sql, new { id });
     }
+
+    internal int CreateComment(Comment newComment)
+    {
+      string sql = @"
+      INSERT INTO comments
+      (creatorId, postId, text)
+      VALUES
+      (@CreatorId, @PostId, @Text);
+      SELECT LAST_INSERT_ID();";
+      return _db.ExecuteScalar<int>(sql, newPost);
+    }
   }
 }
