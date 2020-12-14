@@ -59,6 +59,9 @@ namespace CLReddit
       services.AddTransient<PostsService>();
       services.AddTransient<PostsRepository>();
 
+      services.AddTransient<CommentsService>();
+      services.AddTransient<CommentsRepository>();
+
 
     }
 
