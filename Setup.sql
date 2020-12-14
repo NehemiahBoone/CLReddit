@@ -25,9 +25,14 @@ CREATE TABLE comments
 (
   id INT AUTO_INCREMENT,
   creatorId VARCHAR(255) NOT NULL,
+  postId INT,
   text VARCHAR(255) NOT NULL,
   PRIMARY KEY (id),
     FOREIGN KEY (creatorId)
       REFERENCES profiles(id)
+      ON DELETE CASCADE,
+
+    FOREIGN KEY (postId)
+      REFERENCES posts(id)
       ON DELETE CASCADE
 );
