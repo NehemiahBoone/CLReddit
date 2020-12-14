@@ -13,9 +13,11 @@ namespace CLReddit.Controllers
   public class PostsController : ControllerBase
   {
     private readonly PostsService _ps;
-    public PostsController(PostsService ps)
+    private readonly CommentsService _cs;
+    public PostsController(PostsService ps, CommentsService cs)
     {
       _ps = ps;
+      _cs = cs;
     }
 
     [HttpGet]
@@ -37,6 +39,19 @@ namespace CLReddit.Controllers
       try
       {
         return Ok(_ps.GetById(id));
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [HttpGet("{id}/comments")]
+    public ActionResult<IENumerable<Comment>> GetCommentsByPostId(int id)
+    {
+      try
+      {
+        return Ok(_cs.GetCommentsByPostId(id));
       }
       catch (System.Exception e)
       {
