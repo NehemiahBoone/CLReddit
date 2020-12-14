@@ -12,7 +12,7 @@ namespace CLReddit.Services
     public CommentsService(CommentsRepository repo, PostsRepository postRepo)
     {
       _repo = repo;
-      _postRepo = postRepo
+      _postRepo = postRepo;
     }
 
     internal IEnumerable<Comment> GetCommentsByPostId(int id)
