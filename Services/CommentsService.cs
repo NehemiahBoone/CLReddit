@@ -67,7 +67,19 @@ namespace CLReddit.Services
 
     internal object DeleteComment(int commentId, string userId)
     {
-      throw new NotImplementedException();
+      Comment comment = _repo.GetById(commentId);
+      if (comment == null)
+      {
+        throw new Exception("Invalid commentId... from CommentsService l.73");
+      }
+
+      if (comment.CreatorId != userId)
+      {
+        throw new Exception("UNAUTHORIZED DELETE... from CommentsService l.78");
+      }
+
+      _repo.DeleteComment(commentId);
+      return "Successfully deleted Comment... from CommentsService l.82";
     }
   }
 }
