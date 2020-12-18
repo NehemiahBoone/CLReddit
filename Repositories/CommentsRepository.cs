@@ -61,5 +61,11 @@ namespace CLReddit.Repositories
       _db.Execute(sql, editedComment);
       return editedComment;
     }
+
+    internal void DeleteComment(int commentId)
+    {
+      string sql = "DELETE FROM comments WHERE id = @commentId";
+      _db.Execute(sql, new { commentId });
+    }
   }
 }
