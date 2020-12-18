@@ -64,5 +64,10 @@ namespace CLReddit.Services
 
       return _repo.EditComment(editedComment);
     }
+
+    internal object DeleteComment(int commentId, string userId)
+    {
+      throw new NotImplementedException();
+    }
   }
 }
